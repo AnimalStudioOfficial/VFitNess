@@ -4,7 +4,7 @@ const (
 	DEBUG_MODE = true
 )
 
-int main(){
+fn main(){
 printf("Welcome To VFitNess")
 printf("What do you want to do?")
 
