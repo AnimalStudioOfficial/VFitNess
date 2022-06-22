@@ -1,12 +1,12 @@
 import os
 
 const (
-	DEBUG_MODE = true
+	debug_mode = true
 )
 
 fn main(){
-printf("Welcome To VFitNess")
-printf("What do you want to do?")
+println("Welcome To VFitNess")
+println("What do you want to do?")
 
 
 
