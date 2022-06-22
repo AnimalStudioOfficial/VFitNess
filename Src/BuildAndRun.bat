@@ -1,0 +1,3 @@
+v .
+main.exe
+pause
