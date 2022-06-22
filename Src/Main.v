@@ -1,4 +1,5 @@
 import os
+import nedpals.vargs // or import nedpals.vargs for vpm users
 import term
 
 const (
