@@ -1,3 +1,3 @@
 v .
-main.exe
+Src.exe
 pause
