@@ -5,8 +5,9 @@ const (
 )
 
 fn main(){
-println("Welcome To VFitNess")
-println("What do you want to do?")
+ println("Welcome To VFitNess")
+ // read text from stdin
+ name := os.input('What do you want to do:')
 
 
 
