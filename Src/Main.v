@@ -1,3 +1,10 @@
+//Read File lines in to array:
+// 	data := os.read_lines("test.txt") or {
+//		println("File can't be read!")
+//		return
+//	}
+//   println(data)
+
 import os
 import nedpals.vargs // or import nedpals.vargs for vpm users
 import term
@@ -6,6 +13,7 @@ const (
 	debug_mode = true
 	version = "0.9"
 )
+
 
 fn quit_promt(){
 	term.clear() // clears the content in the terminal
