@@ -44,8 +44,10 @@ println("By AnimalStudioOfficial")
 println("Made with Vlang")
 }
 
-fn food_add() {
 
+
+fn food_add() {
+food_add_user_input := os.input('What do you want to do:')
 
 }
 
@@ -54,10 +56,12 @@ fn food() {
     food_user_input := os.input('What do you want to do:')
  match food_user_input {
 	'about' { about_cmd() }
-    'add' { food_add() }
+    'add' { goto food_add }
 	'quit' { exit(0) }
 	else { println(food_user_input+" is NOT a command") }
  }
+ food_add:
+ food_add_user_input := os.input('What do you want to do:')
 }
 
 fn main(){
@@ -66,6 +70,7 @@ fn main(){
  user_input := os.input('What do you want to do:')
 match user_input {
 	'about' { about_cmd() }
+    'food' { food() }
 	'quit' { exit(0) }
 	else { println(user_input+" is NOT a command") }
 }
