@@ -45,13 +45,13 @@ println("Made with Vlang")
 }
 
 
-
-fn food_add() {
-food_add_user_input := os.input('What do you want to do:')
-
-}
+//OLD
+//fn food_add() {
+//food_add_user_input := os.input('What do you want to do:')
+//}
 
 fn food() {
+mut fat := "g"
     println("Welcome To Food")
     food_user_input := os.input('What do you want to do:')
  match food_user_input {
@@ -61,7 +61,8 @@ fn food() {
 	else { println(food_user_input+" is NOT a command") }
  }
  food_add:
- food_add_user_input := os.input('What do you want to do:')
+ food_add_fat_user_input := os.input('What do you want to add to Fat:') //Fat input
+fat = food_add_fat_user_input + 'g'
 }
 
 fn main(){
