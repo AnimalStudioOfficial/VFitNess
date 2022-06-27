@@ -9,6 +9,12 @@ import os
 import nedpals.vargs // or import nedpals.vargs for vpm users
 import term
 
+enum State {
+	normal
+	write_log
+	return_error
+}
+
 const (
 	debug_mode = true
 	version = "0.01"
@@ -50,7 +56,8 @@ println("Made with Vlang")
 //food_add_user_input := os.input('What do you want to do:')
 //}
 
-fn food() {
+fn food(s State) ?int {
+  
 //Stats
  mut fat := "g"
 
@@ -77,6 +84,7 @@ write_stats_to_file:
  defer {
  f.close()
  }
+   return 0
 }
 
 fn main(){
@@ -85,7 +93,7 @@ fn main(){
  user_input := os.input('What do you want to do:')
 match user_input {
 	'about' { about_cmd() }
-    'food' { food() }
+    'food' { food(.return_error)? }
 	'quit' { exit(0) }
 	else { println(user_input+" is NOT a command") }
 }
