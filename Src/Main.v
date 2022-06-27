@@ -44,6 +44,16 @@ println("By AnimalStudioOfficial")
 println("Made with Vlang")
 }
 
+fn food() {
+    println("Welcome To Food")
+    food_user_input := os.input('What do you want to do:')
+ match food_user_input {
+	'about' { about_cmd() }
+	'quit' { exit(0) }
+	else { println(food_user_input+" is NOT a command") }
+ }
+}
+
 fn main(){
  println("Welcome To VFitNess")
  // read text from stdin
@@ -51,7 +61,7 @@ fn main(){
 match user_input {
 	'about' { about_cmd() }
 	'quit' { exit(0) }
-	else { println(user_input+"is NOT a command") }
+	else { println(user_input+" is NOT a command") }
 }
 
 
