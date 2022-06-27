@@ -62,7 +62,10 @@ fn food(s State) ?int {
  mut fat := "g"
 
 //Read Stats files
-os.is_file("fat.txt")
+mut is_fat_file := os.is_file("fat.txt")
+if (is_fat_file == true) {
+    println("f")
+}
 
 
 start:
