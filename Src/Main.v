@@ -54,6 +54,8 @@ fn food() {
 //Stats
  mut fat := "g"
 
+
+start:
     println("Welcome To Food")
     food_user_input := os.input('What do you want to do:')
  match food_user_input {
@@ -66,8 +68,15 @@ fn food() {
 food_add:
  food_add_fat_user_input := os.input('What do you want to add to Fat:') //Fat input
 fat = food_add_fat_user_input + 'g'
+goto start
 stats:
  println("Fat: "+fat)
+ goto start
+write_stats_to_file:
+ mut f := os.create('fat.txt')?
+ defer {
+ f.close()
+ }
 }
 
 fn main(){
