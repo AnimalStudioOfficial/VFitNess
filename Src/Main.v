@@ -84,6 +84,7 @@ write_stats_to_file:
  defer {
  f.close()
  }
+ f.writeln('This is a log file')?
    return 0
 }
 
