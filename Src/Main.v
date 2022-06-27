@@ -57,14 +57,17 @@ fn food() {
     println("Welcome To Food")
     food_user_input := os.input('What do you want to do:')
  match food_user_input {
-	'about' { about_cmd() }
+    'stats' {  }
     'add' { goto food_add }
+    'about' { about_cmd() }
 	'quit' { exit(0) }
 	else { println(food_user_input+" is NOT a command") }
  }
- food_add:
+food_add:
  food_add_fat_user_input := os.input('What do you want to add to Fat:') //Fat input
 fat = food_add_fat_user_input + 'g'
+stats:
+ println("Fat: "+fat)
 }
 
 fn main(){
