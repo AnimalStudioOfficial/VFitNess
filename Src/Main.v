@@ -51,7 +51,9 @@ println("Made with Vlang")
 //}
 
 fn food() {
-mut fat := "g"
+//Stats
+ mut fat := "g"
+
     println("Welcome To Food")
     food_user_input := os.input('What do you want to do:')
  match food_user_input {
