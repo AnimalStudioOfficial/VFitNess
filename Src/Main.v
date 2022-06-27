@@ -11,7 +11,7 @@ import term
 
 const (
 	debug_mode = true
-	version = "0.9"
+	version = "0.01"
 )
 
 
