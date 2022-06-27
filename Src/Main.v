@@ -75,6 +75,7 @@ start:
 food_add:
  food_add_fat_user_input := os.input('What do you want to add to Fat:') //Fat input
 fat = food_add_fat_user_input + 'g'
+goto write_stats_to_file
 goto start
 stats:
  println("Fat: "+fat)
@@ -84,7 +85,7 @@ write_stats_to_file:
  defer {
  f.close()
  }
- f.writeln('This is a log file')?
+ f.writeln(fat)?
    return 0
 }
 
