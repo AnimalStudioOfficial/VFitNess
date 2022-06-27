@@ -61,6 +61,9 @@ fn food(s State) ?int {
 //Stats
  mut fat := "g"
 
+//Read Stats files
+os.is_file("fat.txt")
+
 
 start:
     println("Welcome To Food")
