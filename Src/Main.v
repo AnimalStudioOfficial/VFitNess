@@ -303,16 +303,121 @@ best_protein_1_data := [
 	println(t2)
 }
 
+fn best_fat() {
+println("Here are some results:")
+best_fat_data := [
+		['Number', 'Name'],
+		['1', '9 High-Fat Foods That Offer Great Health Benefits'],
+		['2', '18 of the Best Foods for Your Healthy Weight Journey'],
+		['3', 'soon'],
+        ['4', 'soon'],
+	]
+	t := tt.Table{
+		data: best_fat_data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
+
+best_fat_user_input := os.input('What do you want to Look for:').to_lower()
+match best_fat_user_input {
+    '1' { goto num1 }
+    '2' { goto num2 }
+    'about' { about_cmd() }
+	'quit' { exit(0) }
+	else { println(best_fat_user_input+" is NOT a command") }
+}
+//Number 1
+num1:
+best_fat_1_data := [
+		['Number', 'Name', 'dec'],
+		['1', 'Avocados', ''],
+		['2', 'Cheese', 'Cheese is surprisingly nutritious, despite its iffy reputation.'],
+		['3', 'Dark chocolate', ''],
+        ['4', 'Whole eggs', ''],
+        ['5', 'Fatty fish', ''],
+        ['6', 'Nuts', ''],
+        ['7', 'Chia seeds', ''],
+        ['8', 'Extra virgin olive oil', ''],
+        ['9', 'Full-fat yogurt', ''],
+        ['10', '', ''],
+        ['11', '', ''],
+        ['12', '', ''],
+        ['13', '', ''],
+        ['14', '', ''],
+        ['15', '', ''],
+        ['16', '', ''],
+
+
+
+	]
+	t2 := tt.Table{
+		data: best_fat_1_data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t2)
+//Number 2
+num2:
+best_fat_2_data := [
+		['Number', 'Name', 'dec'],
+		['1', 'Whole eggs', ''],
+		['2', 'Leafy greens', 'Leafy greens include kale, spinach, collard greens, Swiss chard, and a few others.'],
+		['3', 'Salmon', 'Fatty fish like salmon are incredibly nutritious and very satisfying.'],
+        ['4', 'Cruciferous vegetables', 'Cruciferous vegetables include broccoli, cauliflower, cabbage, and Brussels sprouts.'],
+        ['5', 'Chicken breast and some lean meats', ''],
+        ['6', 'Potatoes and other root vegetables', ''],
+        ['7', 'Tuna', 'Tuna is another satiating high protein food.'],
+        ['8', 'Beans and legumes', ''],
+        ['9', 'Soups', ''],
+        ['10', 'Cottage cheese', 'Dairy products tend to be high in protein.'],
+        ['11', 'Avocados', ''],
+        ['12', 'Nuts', ''],
+        ['13', 'Whole grains', 'Recent studies show that a diet rich in whole grains can help support healthy weight loss '],
+        ['14', 'Chili pepper', 'Eating chili peppers may be useful on a weight loss diet.'],
+        ['15', 'Fruit', 'Most health experts agree that fruit is healthy.'],
+        ['16', '', ''],
+
+
+
+	]
+	t3 := tt.Table{
+		data: best_fat_2_data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t3)
+}
+
+
 fn best_cmd() {
 best_user_input := os.input('What do you want to Look for:').to_lower()
 match best_user_input {
     'protein' { best_protein() }
+    'fat' { best_fat() }
     'about' { about_cmd() }
 	'quit' { exit(0) }
 	else { println(best_user_input+" is NOT a command") }
 }
 
 }
+
+
 
 fn main(){
 mut data_dir_exists := os.exists("data") //Check if data dir exists
