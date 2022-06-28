@@ -276,6 +276,19 @@ best_protein_1_data := [
         ['4', 'Cottage cheese', 'Cottage cheese is a type of cheese that is low in fat and calories, yet high in protein.'],
         ['5', 'Greek yogurt', 'Greek yogurt, also called strained yogurt, is a very thick type of yogurt that’s high in protein.'],
         ['6', 'Milk', 'Dairy milk contains a little of nearly every nutrient that your body needs.'],
+        ['7', 'Lentils', ''],
+        ['8', 'Lean beef', ''],
+        ['9', 'Fish', ''],
+        ['10', 'Quinoa', ''],
+        ['11', 'Protein powders', ''],
+        ['12', 'Ezekiel bread', 'Ezekiel bread is different from most other breads.'],
+        ['13', 'Pumpkin seeds', 'Pumpkin seeds are incredibly delicious and highly nutritious.'],
+        ['14', 'Turkey breast', 'Turkey breast is similar to chicken breast in many ways.'],
+        ['15', 'Shellfish', 'Shellfish, including shrimp, oysters, clams, and scallops are excellent sources of protein.'],
+        ['16', 'Peanuts and peanut butter', 'Although people commonly think of peanuts as nuts, they’re actually legumes.'],
+
+
+
 	]
 	t2 := tt.Table{
 		data: best_protein_1_data
