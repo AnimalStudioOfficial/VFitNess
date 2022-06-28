@@ -268,6 +268,26 @@ match best_protein_user_input {
 	else { println(best_protein_user_input+" is NOT a command") }
 }
 num1:
+best_protein_1_data := [
+		['Number', 'Name', 'dec'],
+		['1', 'Eggs', ''],
+		['2', 'soon', ''],
+		['3', 'soon', ''],
+        ['4', 'soon', ''],
+	]
+	t := tt.Table{
+		data: best_protein_1_data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
+ println("1. Eggs")
+ println("2. Almonds")
 }
 
 fn best_cmd() {
