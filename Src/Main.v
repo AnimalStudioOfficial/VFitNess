@@ -239,6 +239,48 @@ write_stats_to_file:
 //OLD
 //println("Welcome To VFitNess "+version)
 
+fn best_protein() {
+println("Here are some results:")
+best_protein_data := [
+		['Number', 'Name'],
+		['1', '16 Delicious High Protein Foods'],
+		['2', 'soon'],
+		['3', 'soon'],
+        ['4', 'soon'],
+	]
+	t := tt.Table{
+		data: best_protein_data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
+
+best_protein_user_input := os.input('What do you want to Look for:').to_lower()
+match best_protein_user_input {
+    '1' { goto num1 }
+    'about' { about_cmd() }
+	'quit' { exit(0) }
+	else { println(best_protein_user_input+" is NOT a command") }
+}
+num1:
+}
+
+fn best_cmd() {
+best_user_input := os.input('What do you want to Look for:').to_lower()
+match best_user_input {
+    'protein' { best_protein() }
+    'about' { about_cmd() }
+	'quit' { exit(0) }
+	else { println(best_user_input+" is NOT a command") }
+}
+
+}
+
 fn main(){
 mut data_dir_exists := os.exists("data") //Check if data dir exists
 if data_dir_exists == true && data_dir_exists != false { //data dir exists
@@ -281,6 +323,7 @@ help_cmd()
 match user_input {
     'food' { food(.return_error)? }
     'info' { pc_info() }
+    'best' { best_cmd() }
     'about' { about_cmd() }
 	'quit' { exit(0) }
 	else { println(user_input+" is NOT a command") }
