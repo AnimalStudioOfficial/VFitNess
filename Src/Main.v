@@ -270,12 +270,14 @@ match best_protein_user_input {
 num1:
 best_protein_1_data := [
 		['Number', 'Name', 'dec'],
-		['1', 'Eggs', ''],
-		['2', 'soon', ''],
-		['3', 'soon', ''],
-        ['4', 'soon', ''],
+		['1', 'Eggs', 'Whole eggs are among the most nutritious foods available.'],
+		['2', 'Almonds', 'Almonds are a nutritious tree nut rich in essential nutrients like fiber, vitamin E, manganese, and magnesium'],
+		['3', 'Chicken breast', ''],
+        ['4', 'Cottage cheese', 'Cottage cheese is a type of cheese that is low in fat and calories, yet high in protein.'],
+        ['5', 'Greek yogurt', 'Greek yogurt, also called strained yogurt, is a very thick type of yogurt that’s high in protein.'],
+        ['6', 'Milk', 'Dairy milk contains a little of nearly every nutrient that your body needs.'],
 	]
-	t := tt.Table{
+	t2 := tt.Table{
 		data: best_protein_1_data
 		// The following settings are optional and have these defaults:
 		style: .fancy_grid
@@ -285,9 +287,7 @@ best_protein_1_data := [
 		padding: 1
 		tabsize: 4
 	}
-	println(t)
- println("1. Eggs")
- println("2. Almonds")
+	println(t2)
 }
 
 fn best_cmd() {
