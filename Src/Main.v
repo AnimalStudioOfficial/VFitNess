@@ -15,6 +15,8 @@ import os
 import term
 import runtime
 import time
+//import benchmark
+import v.vcache
 import clipboard
 //import net.http
 //import encoding.base58
@@ -420,6 +422,10 @@ match best_user_input {
 
 
 fn main(){
+	
+
+
+
 mut data_dir_exists := os.exists("data") //Check if data dir exists
 if data_dir_exists == true && data_dir_exists != false { //data dir exists
 println("[DEBUG] data dir exists: true")
