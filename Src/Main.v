@@ -420,8 +420,8 @@ match best_user_input {
 fn settings() {
 data := [
 		['Number', 'Name', 'Dec'],
-		['1', 'clear', 'clear before cmd'],
-		['2', '', ''],
+		['1', 'clear', 'Clear before cmd'],
+		['2', 'cleardata', 'Clear user data (e.g. food tracking data)'],
 		['3', '', ''],
         ['4', '', ''],
 		['5', '', ''],
