@@ -419,7 +419,7 @@ match best_user_input {
 
 //Settings
 fn cleardata() {
-
+os.execute_or_panic("del /Q data")
 }
 
 
@@ -494,6 +494,7 @@ help_cmd()
  user_input := os.input('What do you want to do:').to_lower()
 match user_input {
     'food' { food(.return_error)? }
+	'settings' { settings() }
     'info' { pc_info() }
     'best' { best_cmd() }
     'about' { about_cmd() }
