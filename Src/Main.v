@@ -418,12 +418,14 @@ match best_user_input {
 }
 
 //Settings
-fn cleardata() {
-os.execute_or_panic("del /Q data")
+fn cleardata(s State) ?int {
+ os.rm("data/fat.txt") or {}
+ os.rm("data/proteins.txt") or {}
+ return 0
 }
 
 
-fn settings() {
+fn settings(s State) ?int {
 settings_data := [
 		['Number', 'Name', 'Dec'],
 		//['1', 'clear', 'Clear before cmd'], //TODO add Clear before cmd
@@ -446,11 +448,11 @@ settings_data := [
 	settings_user_input := os.input('What do you want to change:').to_lower()
 
 	match settings_user_input {
-	'cleardata' { cleardata() }
+	'cleardata' { cleardata(.return_error)? }
 	'quit' { exit(0) }
 	else { println(settings_user_input+" is NOT a command") }
 }
-
+return 0
 }
 
 fn main(){
@@ -494,7 +496,7 @@ help_cmd()
  user_input := os.input('What do you want to do:').to_lower()
 match user_input {
     'food' { food(.return_error)? }
-	'settings' { settings() }
+	'settings' { settings(.return_error)? }
     'info' { pc_info() }
     'best' { best_cmd() }
     'about' { about_cmd() }
