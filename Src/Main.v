@@ -74,6 +74,7 @@ data := [
 		['2', 'about', 'VFitNess about'],
 		['3', 'quit', 'exit the app'],
         ['4', 'info', 'pc info'],
+		['5', 'best', 'best food ideas'],
 	]
 	t := tt.Table{
 		data: data
@@ -416,13 +417,30 @@ match best_user_input {
 
 }
 
+fn settings() {
+data := [
+		['Number', 'Name', 'Dec'],
+		['1', 'clear', 'clear before cmd'],
+		['2', '', ''],
+		['3', '', ''],
+        ['4', '', ''],
+		['5', '', ''],
+	]
+	t := tt.Table{
+		data: data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
 
+}
 
 fn main(){
-	
-
-
-
 mut data_dir_exists := os.exists("data") //Check if data dir exists
 if data_dir_exists == true && data_dir_exists != false { //data dir exists
 println("[DEBUG] data dir exists: true")
