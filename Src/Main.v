@@ -76,6 +76,7 @@ data := [
 		['3', 'quit', 'exit the app'],
         ['4', 'info', 'pc info'],
 		['5', 'best', 'best food ideas'],
+		['6', 'settings', 'settings'],
 	]
 	t := tt.Table{
 		data: data
