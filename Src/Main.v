@@ -37,6 +37,7 @@ const (
 )
 
 
+
 fn quit_promt(){
 	term.clear() // clears the content in the terminal
     width, height := term.get_terminal_size() // get the size of the terminal
@@ -456,6 +457,7 @@ return 0
 }
 
 fn main(){
+
 mut data_dir_exists := os.exists("data") //Check if data dir exists
 if data_dir_exists == true && data_dir_exists != false { //data dir exists
 println("[DEBUG] data dir exists: true")
