@@ -417,17 +417,23 @@ match best_user_input {
 
 }
 
+//Settings
+fn cleardata() {
+
+}
+
+
 fn settings() {
-data := [
+settings_data := [
 		['Number', 'Name', 'Dec'],
-		['1', 'clear', 'Clear before cmd'],
-		['2', 'cleardata', 'Clear user data (e.g. food tracking data)'],
+		//['1', 'clear', 'Clear before cmd'], //TODO add Clear before cmd
+		['1', 'cleardata', 'Clear user data (e.g. food tracking data)'],
 		['3', '', ''],
         ['4', '', ''],
 		['5', '', ''],
 	]
 	t := tt.Table{
-		data: data
+		data: settings_data
 		// The following settings are optional and have these defaults:
 		style: .fancy_grid
 		header_style: .bold
@@ -437,6 +443,13 @@ data := [
 		tabsize: 4
 	}
 	println(t)
+	settings_user_input := os.input('What do you want to change:').to_lower()
+
+	match settings_user_input {
+	'cleardata' { cleardata() }
+	'quit' { exit(0) }
+	else { println(settings_user_input+" is NOT a command") }
+}
 
 }
 
