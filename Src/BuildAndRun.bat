@@ -1,6 +1,3 @@
-
 v .
 Src.exe
-
- 
 pause

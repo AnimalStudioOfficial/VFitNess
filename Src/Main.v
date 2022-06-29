@@ -16,7 +16,7 @@ import term
 import runtime
 import time
 //import benchmark
-import v.vcache
+//import v.vcache
 import clipboard
 //import net.http
 //import encoding.base58
@@ -58,13 +58,14 @@ fn quit_promt(){
 	exit(0)
 }
 
-fn about_cmd(){
-term.clear() // clears the content in the terminal
-println("VFitNess "+version)
-println("------------------")
-println("By AnimalStudioOfficial")
-println("Made with Vlang")
+fn about_cmd() {
+        term.clear() // clears the content in the terminal
+        println('VFitNess ' + version)
+        println('------------------')
+        println('By AnimalStudioOfficial')
+        println('Made with Vlang')
 }
+
 
 fn help_cmd() {
 data := [
@@ -355,8 +356,6 @@ best_fat_1_data := [
         ['15', '', ''],
         ['16', '', ''],
 
-
-
 	]
 	t2 := tt.Table{
 		data: best_fat_1_data
@@ -389,8 +388,6 @@ best_fat_2_data := [
         ['14', 'Chili pepper', 'Eating chili peppers may be useful on a weight loss diet.'],
         ['15', 'Fruit', 'Most health experts agree that fruit is healthy.'],
         ['16', '', ''],
-
-
 
 	]
 	t3 := tt.Table{
