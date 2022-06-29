@@ -1,5 +1,6 @@
 const (
 exe_file = ''
+build_cmd = ''
 )
 
 // print command then execute it
