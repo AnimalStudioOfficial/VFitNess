@@ -203,6 +203,7 @@ else if is_proteins_file == false && is_proteins_file != true{
 
 
 start:
+//TODO add help menu to food
     println("Welcome To Food")
     food_user_input := os.input('What do you want to do:')
  match food_user_input {
@@ -361,14 +362,13 @@ best_fat_1_data := [
         ['7', 'Chia seeds', ''],
         ['8', 'Extra virgin olive oil', ''],
         ['9', 'Full-fat yogurt', ''],
-        ['10', '', ''],
-        ['11', '', ''],
-        ['12', '', ''],
-        ['13', '', ''],
-        ['14', '', ''],
-        ['15', '', ''],
-        ['16', '', ''],
-
+        ['10', 'soon', 'soon'],
+        ['11', 'soon', 'soon'],
+        ['12', 'soon', 'soon'],
+        ['13', 'soon', 'soon'],
+        ['14', 'soon', 'soon'],
+        ['15', 'soon', 'soon'],
+        ['16', 'soon', 'soon'],
 	]
 	t2 := tt.Table{
 		data: best_fat_1_data
@@ -400,7 +400,7 @@ best_fat_2_data := [
         ['13', 'Whole grains', 'Recent studies show that a diet rich in whole grains can help support healthy weight loss '],
         ['14', 'Chili pepper', 'Eating chili peppers may be useful on a weight loss diet.'],
         ['15', 'Fruit', 'Most health experts agree that fruit is healthy.'],
-        ['16', '', ''],
+        ['16', 'soon', 'soon'],
 
 	]
 	t3 := tt.Table{
@@ -442,9 +442,9 @@ settings_data := [
 		['Number', 'Name', 'Dec'],
 		//['1', 'clear', 'Clear before cmd'], //TODO add Clear before cmd
 		['1', 'cleardata', 'Clear user data (e.g. food tracking data)'],
-		['3', '', ''],
-        ['4', '', ''],
-		['5', '', ''],
+		['3', 'soon', 'soon'], //TODO add more settings
+        ['4', 'soon', 'soon'], //TODO add more settings
+		['5', 'soon', 'soon'], //TODO add more settings
 	]
 	t := tt.Table{
 		data: settings_data
@@ -471,11 +471,11 @@ fn main(){
 
 mut data_dir_exists := os.exists("data") //Check if data dir exists
 if data_dir_exists == true && data_dir_exists != false { //data dir exists
-println("[DEBUG] data dir exists: true")
+//println("[DEBUG] data dir exists: true")
 
 }
 else if data_dir_exists == false && data_dir_exists != true { //data dir does NOT exist
-    println("[DEBUG] data dir exists: false")
+    //println("[DEBUG] data dir exists: false")
     os.mkdir("data") or { panic("err") } //Create the data directory
 
     //Check if the data directory is writable folder
