@@ -142,6 +142,7 @@ exit(1)
 fn food(s State) ?int {
   
 //Stats
+
  mut fat := "g" //Add g to the end of the string to repesent grams
  mut proteins := "g" //Add g to the end of the string to repesent grams
 
@@ -211,11 +212,19 @@ start:
 	else { println(food_user_input+" is NOT a command") }
  }
 food_add:
- food_add_fat_user_input := os.input('What do you want to add to Fat:') //Fat input
-fat = food_add_fat_user_input + 'g' //Add g to the end of the string to repesent grams
+ food_add_fat_user_input := os.input('What do you want to add to Fat:').int() //Fat input
+ mut fattemp := fat.int()
+ mut ger := fattemp + food_add_fat_user_input
+ mut her := ger.str()
+ //println(ger)
+fat = her + 'g' //Add g to the end of the string to repesent grams
 
-food_add_proteins_user_input := os.input('What do you want to add to proteins:') //proteins input
-proteins = food_add_proteins_user_input + 'g' //Add g to the end of the string to repesent grams
+food_add_proteins_user_input := os.input('What do you want to add to proteins:').int() //proteins input
+ mut proteinstemp := proteins.int()
+ mut jer := proteinstemp + food_add_proteins_user_input
+ mut ter := jer.str()
+  //println(ter)
+proteins = ter + 'g' //Add g to the end of the string to repesent grams
 
 goto write_stats_to_file
 goto start
