@@ -19,7 +19,11 @@ import time
 //import v.vcache
 import clipboard
 //import net.http
-//import encoding.base58
+
+import encoding.base58
+import encoding.base64
+import crypto.md5
+import encoding.hex
 
 import nedpals.vargs // or import vargs for vpkg users
 import serkonda7.termtable as tt
@@ -59,6 +63,8 @@ fn quit_promt(){
 	exit(0)
 }
 
+
+
 fn about_cmd() {
         term.clear() // clears the content in the terminal
         println('VFitNess ' + version)
@@ -67,6 +73,12 @@ fn about_cmd() {
         println('Made with Vlang')
 }
 
+fn encript(stringtoencript string) {
+mut stringtoencript_base58 := base58.encode(stringtoencript)
+mut stringtoencript_base64 := base64.encode_str(stringtoencript_base58)
+
+
+}
 
 fn help_cmd() {
 data := [
@@ -431,7 +443,13 @@ match best_user_input {
 
 //Settings
 fn cleardata(s State) ?int {
+if os.exists("data/fat.txt") == true {
  os.rm("data/fat.txt") or {}
+}
+else if  os.exists("data/fat.txt") == false {
+
+}
+
  os.rm("data/proteins.txt") or {}
  return 0
 }
@@ -467,7 +485,16 @@ settings_data := [
 return 0
 }
 
+
+
+//struct Employee {
+//   name  bool
+//}
+
 fn main(){
+
+//    x := Employee{true}
+//   println(x.name)
 
 mut data_dir_exists := os.exists("data") //Check if data dir exists
 if data_dir_exists == true && data_dir_exists != false { //data dir exists
