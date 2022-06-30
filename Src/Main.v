@@ -784,6 +784,10 @@ weight_write_stats_to_file:
 //   name  bool
 //}
 
+fn steps() {
+//TODO add the steps cmd to keep track of the users steps
+}
+
 fn main(){
 
 
