@@ -1,5 +1,13 @@
 #Changlog
 
+
+##0.04
+* New welcome screen
+* added calories to food
+* added user
+* cleaned code
+* and more
+
 ##0.02
 * New welcome screen
 * added proteins to food
