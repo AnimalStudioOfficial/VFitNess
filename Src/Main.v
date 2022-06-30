@@ -784,15 +784,15 @@ weight_write_stats_to_file:
 //   name  bool
 //}
 
+// x := Employee{true}
+// println(x.name)
+
+
 fn steps() {
 //TODO add the steps cmd to keep track of the users steps
 }
 
 fn main(){
-
-
-//    x := Employee{true}
-//   println(x.name)
 
 mut data_dir_exists := os.exists("data") //Check if data dir exists
 if data_dir_exists == true && data_dir_exists != false { //data dir exists
