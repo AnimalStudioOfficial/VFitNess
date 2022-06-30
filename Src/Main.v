@@ -147,6 +147,7 @@ fn food(s State) ?int {
 
 //Read Stats files
 //Fat file
+check_fat_file:
 mut is_fat_file := os.is_file("data/fat.txt")
 if is_fat_file == true && is_fat_file != false{
    // println("true")
@@ -168,10 +169,11 @@ else if is_fat_file == false && is_fat_file != true{
 		0
 	}
 	println('$n bytes written')
-    
+    unsafe {goto check_proteins_file}
     exit(1)
 }
 //proteins file
+check_proteins_file:
 mut is_proteins_file := os.is_file("data/proteins.txt")
 if is_proteins_file == true && is_proteins_file != false{
    // println("true")
@@ -193,7 +195,7 @@ else if is_proteins_file == false && is_proteins_file != true{
 		0
 	}
 	println('$n bytes written')
-    
+    unsafe {goto check_fat_file}
     exit(1)
 }
 
