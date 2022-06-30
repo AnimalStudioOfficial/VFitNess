@@ -142,7 +142,6 @@ exit(1)
 fn food(s State) ?int {
   
 //Stats
-
  mut fat := "g" //Add g to the end of the string to repesent grams
  mut proteins := "g" //Add g to the end of the string to repesent grams
 
@@ -213,16 +212,16 @@ start:
  }
 food_add:
  food_add_fat_user_input := os.input('What do you want to add to Fat:').int() //Fat input
- mut fattemp := fat.int()
- mut ger := fattemp + food_add_fat_user_input
- mut her := ger.str()
- //println(ger)
+ mut fattemp := fat.int() //Convert fat to a int
+ mut ger := fattemp + food_add_fat_user_input //add fat int and food_add_fat_user_input
+ mut her := ger.str() //then convert back to string
+ //println(her)
 fat = her + 'g' //Add g to the end of the string to repesent grams
 
 food_add_proteins_user_input := os.input('What do you want to add to proteins:').int() //proteins input
- mut proteinstemp := proteins.int()
- mut jer := proteinstemp + food_add_proteins_user_input
- mut ter := jer.str()
+ mut proteinstemp := proteins.int() //Convert proteins to a int
+ mut jer := proteinstemp + food_add_proteins_user_input  //add proteins int and food_add_proteins_user_input
+ mut ter := jer.str() //then convert back to string
   //println(ter)
 proteins = ter + 'g' //Add g to the end of the string to repesent grams
 
