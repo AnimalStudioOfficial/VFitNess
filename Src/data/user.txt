@@ -1,0 +1,1 @@
+{"name":"Animal","age":"20","gender":"male"}

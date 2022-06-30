@@ -19,11 +19,14 @@ import time
 //import v.vcache
 import clipboard
 //import net.http
-
+import json
 import encoding.base58
 import encoding.base64
-import crypto.md5
-import encoding.hex
+//import crypto.md5
+//import crypto.sha512
+
+
+//import encoding.hex
 
 import nedpals.vargs // or import vargs for vpkg users
 import serkonda7.termtable as tt
@@ -37,9 +40,14 @@ enum State {
 
 const (
 	debug_mode = true
-	version = "0.02"
+	version = "0.04"
 )
 
+struct User {
+  	name   string
+	age    string
+	gender    string
+}
 
 
 fn quit_promt(){
@@ -74,9 +82,10 @@ fn about_cmd() {
 }
 
 fn encript(stringtoencript string) {
+	if typeof(stringtoencript).name == "string" {
 mut stringtoencript_base58 := base58.encode(stringtoencript)
 mut stringtoencript_base64 := base64.encode_str(stringtoencript_base58)
-
+	}
 
 }
 
@@ -89,6 +98,8 @@ data := [
         ['4', 'info', 'pc info'],
 		['5', 'best', 'best food ideas'],
 		['6', 'settings', 'settings'],
+		['7', 'user', 'Your User Profile'],
+		['8', 'weight', 'weight tracking'],
 	]
 	t := tt.Table{
 		data: data
@@ -150,10 +161,23 @@ exit(1)
 }
  return 0
 }
+//calories
+fn add_calories_file_input(s State) ?int {
+ add_calories_file_input := os.input('Do you want to create the calories.txt file:').to_lower()
+if add_calories_file_input == 'yes' || add_calories_file_input == 'y' {
+mut f := os.create('data/calories.txt')?
+return f.writeln('0')
+}
+else if add_calories_file_input == 'no' || add_calories_file_input == 'n' {
+exit(1)
+}
+ return 0
+}
 
 fn food(s State) ?int {
   
 //Stats
+ mut calories := ""
  mut fat := "g" //Add g to the end of the string to repesent grams
  mut proteins := "g" //Add g to the end of the string to repesent grams
 
@@ -210,7 +234,32 @@ else if is_proteins_file == false && is_proteins_file != true{
     unsafe {goto check_fat_file}
     exit(1)
 }
+//calories file
+check_calories_file:
+mut is_calories_file := os.is_file("data/calories.txt")
+if is_calories_file == true && is_calories_file != false{
+   // println("true")
+    //TODO add check is_readable() fn to calories file
 
+    data := os.read_file("data/calories.txt")?
+    calories = data
+  //println(data)
+
+
+ //println(calories)
+}
+else if is_calories_file == false && is_calories_file != true{
+    //println("false")
+    println(chalk.fg(chalk.style('[ERROR]', 'bold'), 'red')+' calories.txt is not a file or does not exist')
+
+    n := add_calories_file_input(.return_error) or {
+		println('Error: $err')
+		0
+	}
+	println('$n bytes written')
+    unsafe {goto check_fat_file}
+    exit(1)
+}
 
 
 
@@ -221,11 +270,19 @@ start:
  match food_user_input {
     'stats' { goto stats }
     'add' { unsafe {goto food_add}}
+	'clear' { unsafe {goto food_clear}}
     'about' { about_cmd() }
 	'quit' { exit(0) }
 	else { println(food_user_input+" is NOT a command") }
  }
 food_add:
+ food_add_calories_user_input := os.input('What do you want to add to calories:').int() //calories input
+ mut caloriestemp := calories.int() //Convert calories to a int
+ mut ler := caloriestemp + food_add_calories_user_input //add calories int and food_add_calories_user_input
+ mut ker := ler.str() //then convert back to string
+ //println(ker)
+calories = ker 
+
  food_add_fat_user_input := os.input('What do you want to add to Fat:').int() //Fat input
  mut fattemp := fat.int() //Convert fat to a int
  mut ger := fattemp + food_add_fat_user_input //add fat int and food_add_fat_user_input
@@ -243,6 +300,8 @@ proteins = ter + 'g' //Add g to the end of the string to repesent grams
 goto write_stats_to_file
 goto start
 stats:
+//calories
+ println("calories:"+calories)
 //fat
  println("Fat: "+fat)
  //proteins
@@ -261,8 +320,20 @@ write_stats_to_file:
  p.close()
  }
  p.writeln(proteins)?
+ //calories file
+ mut calories_p := os.create('data/calories.txt')?
+ defer {
+ calories_p.close()
+ }
+ calories_p.writeln(calories)?
  goto start
-   return 0
+food_clear:
+ fat = "g"
+ calories = ""
+ proteins = "g"
+ goto write_stats_to_file
+ goto start
+return 0
 }
 
 //OLD
@@ -429,7 +500,27 @@ best_fat_2_data := [
 }
 
 
-fn best_cmd() {
+fn best_cmd() ?int {
+	data := [
+		['Number', 'Name', 'Dec'],
+		['1', 'protein', 'best protein foods'],
+		['2', 'fat', 'best fat foods'],
+		['3', 'about', 'VFitNess about'],
+		['4', 'quit', 'exit the app'],
+       
+
+	]
+	t := tt.Table{
+		data: data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
 best_user_input := os.input('What do you want to Look for:').to_lower()
 match best_user_input {
     'protein' { best_protein() }
@@ -438,19 +529,38 @@ match best_user_input {
 	'quit' { exit(0) }
 	else { println(best_user_input+" is NOT a command") }
 }
-
+return 0
 }
 
 //Settings
 fn cleardata(s State) ?int {
-if os.exists("data/fat.txt") == true {
- os.rm("data/fat.txt") or {}
+if os.exists("data/fat.txt") == true { //Fat file
+ os.rm("data/fat.txt") or {panic(err)}
 }
-else if  os.exists("data/fat.txt") == false {
-
+else if  os.exists("data/fat.txt") == false { //Fat file does NOT exist
+println("[INFO] data/fat.txt does not exist")
 }
 
- os.rm("data/proteins.txt") or {}
+if os.exists("data/proteins.txt") == true { //proteins file
+ os.rm("data/proteins.txt") or {panic(err)}
+}
+else if  os.exists("data/proteins.txt") == false {
+println("[INFO] data/proteins.txt does not exist")
+}
+
+if os.exists("data/calories.txt") == true { //calories file
+ os.rm("data/calories.txt") or {panic(err)}
+}
+else if  os.exists("data/calories.txt") == false { //calories file does NOT exist
+println("[INFO] data/calories.txt does not exist")
+}
+ 
+if os.exists("data/user.txt") == true { //user file
+ os.rm("data/user.txt") or {panic(err)}
+}
+else if  os.exists("data/user.txt") == false { //user file does NOT exist
+println("[INFO] data/user.txt does not exist")
+}
  return 0
 }
 
@@ -459,7 +569,7 @@ fn settings(s State) ?int {
 settings_data := [
 		['Number', 'Name', 'Dec'],
 		//['1', 'clear', 'Clear before cmd'], //TODO add Clear before cmd
-		['1', 'cleardata', 'Clear user data (e.g. food tracking data)'],
+		['1', 'cleardata', 'Clear user data (e.g. food tracking data, weight tracking data, user data)'],
 		['3', 'soon', 'soon'], //TODO add more settings
         ['4', 'soon', 'soon'], //TODO add more settings
 		['5', 'soon', 'soon'], //TODO add more settings
@@ -485,13 +595,197 @@ settings_data := [
 return 0
 }
 
+fn user_new() ?int {
+//mut user_name := ''
+//mut user_age := 0
 
+user_name_input := os.input('What is your Name:')
+user_age_input := os.input('What is your age:')
+user_gender_input := os.input('What is your gender:')
+
+mut usr := User{
+  	name: user_name_input
+	age: user_age_input
+	gender: user_gender_input
+	}
+out := json.encode(usr)
+println(out)
+
+ mut outfile := os.create('data/user.txt')?
+ defer {
+ outfile.close()
+ }
+ outfile.writeln(out)?
+return 0
+}
+
+fn user_pro() ?int {
+	if os.exists("data/user.txt") == true {
+
+	
+	user_data := os.read_file("data/user.txt")?
+	//println(user_data)
+    u := json.decode(User, user_data)?
+	//println(u)
+
+	//println('Your Profile')
+	data := [
+		["Your Profile"],
+		["Name: "+u.name],
+		["Age: "+u.age],
+		["Gender: "+u.gender],
+
+	]
+	t := tt.Table{
+		data: data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
+	//println(u.age)
+}
+else if os.exists("data/user.txt") == false {
+	println(chalk.fg(chalk.style('[ERROR]', 'bold'), 'red')+' user.txt is not a file or does not exist')
+	println("pls main menu and type user and then type new to create a Profile")
+	time.sleep(3)
+}
+return 0
+}
+
+fn user() ?int {
+	println("Welcome to user")
+		data := [
+		['Number', 'Name', 'Dec'],
+		['1', 'new', 'New profile'],
+		['2', 'user', 'Your User Profile'],
+		['3', 'about', 'VFitNess about'],
+		['4', 'quit', 'exit the app'],
+	]
+	t := tt.Table{
+		data: data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
+	
+user_cmd_user_input := os.input('What do you want to do:').to_lower()
+match user_cmd_user_input {
+	'new' { user_new()? }
+	'user' { user_pro()? }
+    'about' { about_cmd() }
+	'quit' { exit(0) }
+	else { println(user_cmd_user_input+" is NOT a command") }
+}
+return 0
+}
+
+
+fn add_weight_file_input(s State) ?int {
+ add_weight_file_input := os.input('Do you want to create the weight.txt file:').to_lower()
+if add_weight_file_input == 'yes' || add_weight_file_input == 'y' { 
+mut f := os.create('data/weight.txt')?
+return f.writeln('0lb')
+}
+else if add_weight_file_input == 'no' || add_weight_file_input == 'n' {
+exit(1)
+}
+ return 0
+}
+
+fn weight_cmd() ?int {
+
+//Stats
+ mut weight := "lb" //Add lb to the end of the string to repesent pounds
+
+
+//Read Stats files
+//weight file
+check_weight_file:
+mut is_weight_file := os.is_file("data/weight.txt")
+if is_weight_file == true && is_weight_file != false{
+   // println("true")
+    //TODO add check is_readable() fn to weight file
+
+    data := os.read_file("data/weight.txt")?
+    weight = data
+  //println(data)
+
+
+ //println(weight)
+}
+else if is_weight_file == false && is_weight_file != true{
+    //println("false")
+    println(chalk.fg(chalk.style('[ERROR]', 'bold'), 'red')+' weight.txt is not a file or does not exist')
+
+    n := add_weight_file_input(.return_error) or {
+		println('Error: $err')
+		0
+	}
+	println('$n bytes written')
+    
+    exit(1)
+}
+
+weight_cmd_start:
+//TODO add help menu to weight
+    println("Welcome To Weight")
+    weight_user_input := os.input('What do you want to do:')
+ match weight_user_input {
+    'stats' { unsafe{goto weight_stats} }
+    'add' {unsafe{goto weight_add} }
+    'about' { about_cmd() }
+	'quit' { exit(0) }
+	else { println(weight_user_input+" is NOT a command") }
+ }
+
+ weight_add:
+ weight_add_weight_user_input := os.input('What do you want to add to weight:').int() //weight input
+ mut weighttemp := weight.int() //Convert weight to a int
+ mut jer := weighttemp + weight_add_weight_user_input //add weight int and weight_add_weight_user_input
+ mut ter := jer.str() //then convert back to string
+ //println(her)
+weight = ter + 'lb' //Add lb to the end of the string to repesent pounds
+
+
+goto weight_write_stats_to_file
+goto weight_cmd_start
+weight_stats:
+//weight
+ println("weight: "+weight)
+ goto weight_cmd_start
+weight_write_stats_to_file:
+//weight file
+ mut weight_f := os.create('data/weight.txt')?
+ defer {
+ weight_f.close()
+ }
+ weight_f.writeln(weight)?
+
+ goto weight_cmd_start
+ return 0
+}
+
+//	int_var := 3
+//	str_var := 'Z'
+//	bool_var := false	
+//	println(typeof(int_var).name + '\n' + typeof(str_var).name + '\n' + typeof(bool_var).name)
 
 //struct Employee {
 //   name  bool
 //}
 
 fn main(){
+
 
 //    x := Employee{true}
 //   println(x.name)
@@ -536,9 +830,11 @@ help_cmd()
  user_input := os.input('What do you want to do:').to_lower()
 match user_input {
     'food' { food(.return_error)? }
+	'user' { user()? }
+	'weight' { weight_cmd()? }
 	'settings' { settings(.return_error)? }
     'info' { pc_info() }
-    'best' { best_cmd() }
+    'best' { best_cmd()? }
     'about' { about_cmd() }
 	'quit' { exit(0) }
 	else { println(user_input+" is NOT a command") }
