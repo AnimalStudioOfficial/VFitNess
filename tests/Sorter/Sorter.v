@@ -9,7 +9,8 @@ import encoding.hex
 import encoding.utf8
 
 fn gen(to string) {
-	
+	mut setup_gen_part1
+	mut setup_gen_part2 := hex.encode(to)
 mut gen1 := base58.encode(to)
 mut stringto := gen1.bytes()
 mut gen2 := base64.encode(stringto).bytes()
