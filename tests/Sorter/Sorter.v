@@ -8,7 +8,13 @@ println("Welcome to Sorter")
  if files.len > 0 {
      for file in files {
          if file.ends_with('.v') {
-             os.mv(file, 'build/') or {
+             os.mv(file, 'tosort/v') or {
+                println('err: $err')
+                
+              }
+         }
+		if file.ends_with('.png') {
+             os.mv(file, 'tosort/png') or {
                 println('err: $err')
                 
               }
