@@ -7,6 +7,7 @@ import encoding.base58
 import encoding.base64
 import encoding.hex
 import encoding.utf8
+import crypto.md5
 
 fn gen(to string) {
 	mut setup_gen_part1 := to.bytes()
@@ -17,7 +18,9 @@ mut stringto := gen1.bytes()
 mut gen2 := base64.encode(stringto).bytes()
 mut gen3 := hex.encode(gen2).bytes()
 mut gen4 := base64.encode(gen3).bytes()
-println(gen4)
+mut gen5 := base58.encode(setup_gen_part3)
+mut gen6 := md5.hexhash("hi")
+println(gen6)
 }
 
 fn main() {
