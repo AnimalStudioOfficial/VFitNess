@@ -8,8 +8,9 @@ import encoding.base64
 import encoding.hex
 import encoding.utf8
 import crypto.md5
+import compress
 
-fn gen(to string) {
+fn gen(to string) ?int {
 	mut setup_gen_part1 := to.bytes()
 	mut setup_gen_part2 := hex.encode(setup_gen_part1)
 	mut setup_gen_part3 := utf8.reverse(setup_gen_part2)
@@ -19,8 +20,10 @@ mut gen2 := base64.encode(stringto).bytes()
 mut gen3 := hex.encode(gen2).bytes()
 mut gen4 := base64.encode(gen3).bytes()
 mut gen5 := gen4.str()
-mut gen6 := md5.hexhash(gen5)
-println(gen6)
+mut gen6 := md5.hexhash(gen5).bytes()
+mut gen7 := compress.compress(gen6,1).str()?
+println(gen7)
+return 0
 }
 
 fn main() {
@@ -43,5 +46,5 @@ fn main() {
 			}
 		}
 	}
-gen("hi")
+gen("hi")?
 }
