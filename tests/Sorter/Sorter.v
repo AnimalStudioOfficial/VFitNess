@@ -9,13 +9,13 @@ import encoding.hex
 import encoding.utf8
 
 fn gen(to string) {
-	mut setup_gen_part1
-	mut setup_gen_part2 := hex.encode(to)
-mut gen1 := base58.encode(to)
+	mut setup_gen_part1 := to.bytes()
+	mut setup_gen_part2 := hex.encode(setup_gen_part1)
+mut gen1 := base58.encode(setup_gen_part2)
 mut stringto := gen1.bytes()
 mut gen2 := base64.encode(stringto).bytes()
 mut gen3 := hex.encode(gen2)
-mut gen4 := 
+//mut gen4 := 
 println(gen3)
 }
 
