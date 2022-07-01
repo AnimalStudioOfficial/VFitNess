@@ -1,23 +1,16 @@
 import os
 
-fn main(){
-println("Welcome to Sorter")
-
- files := os.ls('tosort')?
+fn start() ?int {
+files := os.ls('tosort')?
  mut count := 0
  if files.len > 0 {
      for file in files {
          if file.ends_with('.v') {
-             os.mv(file, 'tosort/v') or {
-                println('err: $err')
-                
-              }
+             os.mv(file, 'tosort/v/')?
          }
-		if file.ends_with('.png') {
-             os.mv(file, 'tosort/png') or {
-                println('err: $err')
-                
-              }
+		else if file.ends_with('.png') {
+             os.mv(file, 'png')?
+			
          }
          count++
      }
@@ -25,4 +18,15 @@ println("Welcome to Sorter")
  if count == 0 {
      println('No files')
  }
+	return 0
+}
+
+fn main(){
+println("Welcome to Sorter")
+
+result := os.execute('sh mv *.png tosort/v')
+if result.exit_code != 0 {
+	println(result.output)
+}
+ //start()?
 }

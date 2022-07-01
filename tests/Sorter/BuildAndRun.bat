@@ -1,3 +1,0 @@
-v .
-Sorter.exe
-pause
