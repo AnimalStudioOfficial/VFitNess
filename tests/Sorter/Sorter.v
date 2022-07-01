@@ -8,12 +8,13 @@ import encoding.base64
 import encoding.hex
 import encoding.utf8
 import crypto.md5
-import compress
+
 
 fn gen(to string) ?int {
-	mut setup_gen_part1 := to.bytes()
-	mut setup_gen_part2 := hex.encode(setup_gen_part1)
-	mut setup_gen_part3 := utf8.reverse(setup_gen_part2)
+mut setup_gen_part1 := to.bytes()
+mut setup_gen_part2 := hex.encode(setup_gen_part1)
+mut setup_gen_part3 := utf8.reverse(setup_gen_part2)
+
 mut gen1 := base58.encode(setup_gen_part3)
 mut stringto := gen1.bytes()
 mut gen2 := base64.encode(stringto).bytes()
