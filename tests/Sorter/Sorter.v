@@ -6,7 +6,7 @@ import time
 
 fn main() {
 	sw := time.new_stopwatch()
-	mut path := 'Coke_Can.png'
+	mut path := 'test.txt'
 	if os.args.len != 2 {
 		println('usage: word_counter [text_file]')
 		println('using $path')
@@ -34,6 +34,7 @@ fn main() {
 
 // Creates an array of words from a given string
 fn extract_words(contents string) []string {
+	sw2 := time.new_stopwatch()
 	mut splitted := []string{}
 	for space_splitted in contents.to_lower().split(' ') {
 		if space_splitted.contains('\n') {
@@ -51,8 +52,9 @@ fn extract_words(contents string) []string {
 		}
 		results << result
 	}
-
+println('extract_words fn took: ${sw2.elapsed().seconds()}seconds')
 	return results
+	
 }
 
 // Removes punctuation
