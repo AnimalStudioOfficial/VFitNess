@@ -21,7 +21,9 @@ mut gen3 := hex.encode(gen2).bytes()
 mut gen4 := base64.encode(gen3).bytes()
 mut gen5 := gen4.str()
 mut gen6 := md5.hexhash(gen5).bytes()
-println(gen86)
+mut gen7 := base64.encode(gen6).bytes()
+mut gen8 := gen7.str()
+println(gen8)
 return 0
 }
 
