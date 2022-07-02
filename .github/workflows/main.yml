@@ -28,4 +28,4 @@ jobs:
       - name: Build V Binary Search Tree
         uses: nzbr/vlang-action@v2
         with:
-          file: main.v
+          file: Src/main.v
