@@ -20,10 +20,5 @@ jobs:
                 "badge": "https://img.shields.io/tokei/lines/github/${{ env.repo_owner }}/${{ env.repo_name }}?style=flat-square",
                 "alt": "MIT License",
                 "link": "${{ env.repo_url }}/blob/master/LICENSE"
-              },
-              {
-                "badge": "https://img.shields.io/badge/language-TypeScript-blue.svg?style=flat-square",
-                "alt": "Language",
-                "link": "https://www.typescriptlang.org"
               }
             ]
