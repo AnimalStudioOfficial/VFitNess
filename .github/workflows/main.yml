@@ -24,6 +24,11 @@ jobs:
         run: make && ./v symlink -githubci
         
       - name: Build c2v and setup ~/code
-        run: v install nedpals.vargs
+        run: |
+          v install serkonda7.termtable
+          v install nedpals.vargs
+          v install etienne_napoleone.chalk
+          v Src/Main.v || true
+ 
         
 
