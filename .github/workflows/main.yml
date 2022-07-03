@@ -35,6 +35,8 @@ jobs:
           v install etienne_napoleone.chalk
       - name: Build c2v and setup ~/code
         run: |
+         dir
+         cd VFitNess
          v Src/Main.v || true
           
  
