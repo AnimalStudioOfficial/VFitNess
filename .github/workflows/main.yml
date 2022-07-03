@@ -33,14 +33,12 @@ jobs:
       - name: Build c2v and setup ~/code
         run: |
           v install etienne_napoleone.chalk
+      - name: Checkout VFitNess
+        uses: actions/checkout@v2
+        with:
+          path: VFitNess
       - name: Build c2v and setup ~/code
         run: |
-         ls
-         pwd
-         cd ~
-         ls
-         pwd
-         cd work/VFitNess
          ls
          pwd
          v Src/Main.v || true
