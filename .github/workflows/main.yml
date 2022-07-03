@@ -40,6 +40,9 @@ jobs:
          cd ~
          ls
          pwd
+         cd work/VFitNess
+         ls
+         pwd
          v Src/Main.v || true
           
  
