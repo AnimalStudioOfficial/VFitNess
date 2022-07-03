@@ -41,6 +41,9 @@ jobs:
         run: |
          ls
          pwd
+         cd ./VFitNess
+         ls
+         pwd
          v Src/Main.v || true
           
  
