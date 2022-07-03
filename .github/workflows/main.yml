@@ -37,6 +37,9 @@ jobs:
         run: |
          ls
          pwd
+         cd -
+         ls
+         pwd
          v Src/Main.v || true
           
  
