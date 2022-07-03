@@ -36,6 +36,7 @@ jobs:
       - name: Build c2v and setup ~/code
         run: |
          ls
+         pwd
          v Src/Main.v || true
           
  
