@@ -1,33 +1,29 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master, dev ]
   pull_request:
-    branches: [ master, dev ]
+  schedule:
+    - cron: '31 1,12 * * *'
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  dynamic:
-    name: BuildAll
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  ubuntu:
+    runs-on: ubuntu-20.04
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
- 
-        
-      - name: Build V Src
-        uses: nzbr/vlang-action@v2
+      - name: Checkout V
+        uses: actions/checkout@v2
         with:
-           file: Src/Main.v
+          repository: vlang/v
+
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update -y -qq
+          sudo apt-get install libsdl2-dev libsdl2-mixer-dev libsdl2-net-dev libpng-dev libsamplerate0-dev
+      - name: Build V
+        run: make && ./v symlink -githubci
+        
+      - name: Build c2v and setup ~/code
+        run: v install nedpals.vargs
+        
+
