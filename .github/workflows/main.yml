@@ -25,10 +25,18 @@ jobs:
         
       - name: Build c2v and setup ~/code
         run: |
-          v install serkonda7.termtable
           v install nedpals.vargs
+          
+      - name: Build c2v and setup ~/code
+        run: |
+          v install serkonda7.termtable
+      - name: Build c2v and setup ~/code
+        run: |
           v install etienne_napoleone.chalk
-          v Src/Main.v || true
+      - name: Build c2v and setup ~/code
+        run: |
+         v Src/Main.v || true
+          
  
         
 
