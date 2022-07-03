@@ -25,5 +25,5 @@ jobs:
                 "badge": "https://img.shields.io/badge/language-TypeScript-blue.svg?style=flat-square",
                 "alt": "Language",
                 "link": "https://www.typescriptlang.org"
-              },
+              }
             ]
