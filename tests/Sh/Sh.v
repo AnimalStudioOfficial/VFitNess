@@ -1,6 +1,7 @@
 // Print file lines that start with "DEBUG:"
 import os
 import time
+import net.http
 
 import serkonda7.termtable as tt
 
@@ -39,6 +40,8 @@ mut reg_2 := ''
 mut reg_3 := ''
 mut reg_4 := ''
 
+
+
 println('Welcome to sh')
 println('-------------')
 help_cmd()
@@ -51,13 +54,23 @@ user_input := os.input('What do you want to do:').to_lower()
                 else { println(user_input + ' is NOT a command') }
         }
 
-run_menu:
+run_menu: //run_menu
 run_menu_user_input := os.input('path to file to run:')
 unsafe{goto run}
-run:
-sw := time.new_stopwatch()
+run: //Run
+
+sw := time.new_stopwatch() //Run stopwatch
+
+
 // `read_file` returns an optional (`?string`), it must be checked
 text := os.read_file(run_menu_user_input) or {panic(err)}
+
+if debug_mode == true {
+println('[DEBUG] Opened '+run_menu_user_input+' file')
+}
+else if debug_mode == false {
+
+}
 
 lines := text.split_into_lines()
 for line in lines {
@@ -176,7 +189,14 @@ for line in lines {
 		
 		
     }
+	
 }
-println('compile took: ${sw.elapsed().seconds()}seconds')
+
+if debug_mode == true {
+println('[DEBUG] compile took: ${sw.elapsed().seconds()}seconds')
+}
+else if debug_mode == false {
+
+}
 
 }

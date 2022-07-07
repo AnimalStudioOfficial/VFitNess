@@ -1,9 +1,16 @@
 import os
 import net.http
+
 import serkonda7.termtable as tt
 
 // mut s := http.get("https://github.com/vlang/v/releases/download/0.3/v_windows.zip")?
 // os.write_file('test.zip', s.body) or {println(err)}
+
+
+fn get_site(site string) string {
+	res := http.get(site) or { return '$site: "Is down"' }
+	return '$site: $res.status_msg'
+}
 
 fn uninstall() ?int {
 	
@@ -11,7 +18,19 @@ return 0
 }
 
 fn install() ?int {
-os.execute_or_panic('cd C:')
+	mut result :=''
+	websites := ["https://youtube.com/","https://github.com/","https://google.com"]
+	
+	for site in websites {
+		result += get_site(site) + '\n'
+	}
+	println(result)
+
+os.mkdir("temp")?
+os.chdir("temp")?
+
+mut f := os.create('temp/fit.zip')?
+
 return 0
 }
 
