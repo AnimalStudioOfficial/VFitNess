@@ -95,6 +95,28 @@ for line in lines {
 		//println(add_num)
 		
     }
+	else if line.starts_with('cmd:') { //cmd
+        ///println(line)
+		mut cmd_arg := line.after(':')
+		os.execute_or_panic(cmd_arg)
+
+		//println(print_arg)
+		//mut print_string := print_arg.split(',')
+		//mut add_num2 := add_num.int()
+		//println(add_num)
+		
+    }
+	else if line.starts_with('mkdir:') { //mkdir
+        ///println(line)
+		mut mkdir_arg := line.after(':')
+		os.mkdir(mkdir_arg) or {panic(err)}
+
+		//println(print_arg)
+		//mut print_string := print_arg.split(',')
+		//mut add_num2 := add_num.int()
+		//println(add_num)
+		
+    }
 }
 
 }
