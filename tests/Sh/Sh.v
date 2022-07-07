@@ -55,6 +55,7 @@ run_menu:
 run_menu_user_input := os.input('path to file to run:')
 unsafe{goto run}
 run:
+sw := time.new_stopwatch()
 // `read_file` returns an optional (`?string`), it must be checked
 text := os.read_file(run_menu_user_input) or {panic(err)}
 
@@ -124,10 +125,7 @@ for line in lines {
 	'reg4' { println(reg_4) }
 	else { println(print_arg + " is not a reg number") }
 }
-		//println(print_arg)
-		//mut print_string := print_arg.split(',')
-		//mut add_num2 := add_num.int()
-		//println(add_num)
+
     }
 	else if line.starts_with('reg1:') { //reg1
         ///println(line)
@@ -162,6 +160,23 @@ for line in lines {
 		//println(add_num)
 		
     }
+	else if line.starts_with('rmdir:') { //rmdir
+        ///println(line)
+		mut rmdir_arg := line.after(':')
+		mut is_dir := os.is_dir(rmdir_arg)
+		if is_dir == true {
+			os.rmdir(rmdir_arg) or {panic(err)}
+		}
+		else if is_dir == false {
+			println("Error "+rmdir_arg+" is not a dir")
+		}
+		else {
+			println("Error with is_dir: "+rmdir_arg)
+		}
+		
+		
+    }
 }
+println('compile took: ${sw.elapsed().seconds()}seconds')
 
 }
