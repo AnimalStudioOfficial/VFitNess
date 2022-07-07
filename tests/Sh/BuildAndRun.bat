@@ -1,0 +1,3 @@
+v .
+Sh.exe
+pause

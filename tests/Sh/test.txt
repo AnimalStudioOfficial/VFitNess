@@ -1,0 +1,4 @@
+add:1,2,reg1
+print:reg1
+reg1:hi
+print:reg1
