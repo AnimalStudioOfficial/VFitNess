@@ -1,17 +1,62 @@
 // Print file lines that start with "DEBUG:"
 import os
+import time
+
+import serkonda7.termtable as tt
+
+const (
+	debug_mode = true
+	//version = "0.04"
+)
 
 
+fn help_cmd() {
+data := [
+		['Number', 'Name', 'Dec'],
+		['1', 'run', 'run a sh file'],
+		['2', 'about', 'sh about'],
+		['3', 'quit', 'exit the app'],
+	]
+	t := tt.Table{
+		data: data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
+}
 
 fn main() {
+
+//mut file_to_run := ''
 
 mut reg_1 := ''
 mut reg_2 := ''
 mut reg_3 := ''
 mut reg_4 := ''
 
+println('Welcome to sh')
+println('-------------')
+help_cmd()
+
+user_input := os.input('What do you want to do:').to_lower()
+        match user_input {
+                'run' { unsafe{goto run_menu} }
+                'about' {  }
+                'quit' { exit(0) }
+                else { println(user_input + ' is NOT a command') }
+        }
+
+run_menu:
+run_menu_user_input := os.input('path to file to run:')
+unsafe{goto run}
+run:
 // `read_file` returns an optional (`?string`), it must be checked
-text := os.read_file('test.txt') or {panic(err)}
+text := os.read_file(run_menu_user_input) or {panic(err)}
 
 lines := text.split_into_lines()
 for line in lines {
