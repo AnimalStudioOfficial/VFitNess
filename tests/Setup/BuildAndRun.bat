@@ -1,0 +1,3 @@
+v .
+Setup.exe
+pause
