@@ -45,6 +45,41 @@ jobs:
          ls
          pwd
          v Src/Main.v || true
+  windows:
+    runs-on: windows-2019
+    steps:
+      - name: Checkout V
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/v
+
+
+
+      - name: Build V
+        run: .\make.bat -gcc && ./v symlink -githubci
+        
+      - name: Build c2v and setup ~/code
+        run: |
+          v install nedpals.vargs
+          
+      - name: Build c2v and setup ~/code
+        run: |
+          v install serkonda7.termtable
+      - name: Build c2v and setup ~/code
+        run: |
+          v install etienne_napoleone.chalk
+      - name: Checkout VFitNess
+        uses: actions/checkout@v2
+        with:
+          path: VFitNess
+      - name: Build c2v and setup ~/code
+        run: |
+         ls
+         pwd
+         cd ./VFitNess
+         ls
+         pwd
+         v Src/Main.v || true
           
  
         
