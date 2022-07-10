@@ -100,6 +100,7 @@ data := [
 		['6', 'settings', 'settings'],
 		['7', 'user', 'Your User Profile'],
 		['8', 'weight', 'weight tracking'],
+		['9', 'activity', 'your activity'],
 	]
 	t := tt.Table{
 		data: data
@@ -823,8 +824,9 @@ mut a_s := Activity_stats{
 	}
 out := json.encode(a_s)
 println(out)
+file_name_user_input := os.input('Please enter your activity file name:') //Input activity file name
 
- mut outfile := os.create('data/activity.txt') or {panic(err)}
+ mut outfile := os.create('data/'+file_name_user_input+'.txt') or {panic(err)}
  defer {
  outfile.close()
  }
@@ -832,13 +834,93 @@ println(out)
 return 0
 }
 
+fn activity_read() ?int {
+start:
+file_to_read_user_input := os.input('Please enter the file you want to read:')
+mut is_a_file := os.is_file("data/"+file_to_read_user_input+".txt")
+match is_a_file {
+	true { //file_to_read_user_input is a file
+	mut is_file_readable := os.is_readable("data/"+file_to_read_user_input+".txt") // is file readable
+	match is_file_readable {
+		true {
+	user_activity_data := os.read_file("data/"+file_to_read_user_input+".txt")?
+	
+    u := json.decode(Activity_stats, user_activity_data)?
+	
+
+	
+	data := [
+		["Your Activity"],
+		["Date: "+u.date],
+		["Steps: "+u.steps],
+		["Calories Burnt: "+u.cals],
+		["Miles: "+u.mi],
+		["Bpm Max: "+u.bpm_max],
+		["Bpm Avg: "+u.bpm_avg],
+
+	]
+	t := tt.Table{
+		data: data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
+	
+		}
+		false {
+	println(file_to_read_user_input+' is NOT readable file or is set to read only')
+		retry_start2:
+		retry2_user_input := os.input('Do you want to try a different file:').to_lower()
+		if retry2_user_input == 'y' || retry2_user_input == 'yes' {
+			unsafe{goto start}
+		}
+		else if retry2_user_input == 'n' || retry2_user_input == 'no' {
+			println('Ok exiting')
+			exit(0)
+		}
+		else {
+			println(retry2_user_input+' is NOT a cmd. Please enter yes or no!')
+			unsafe{goto retry_start2}
+		}
+		}
+	}
+
+	}
+	false { //file_to_read_user_input is not a file
+		println(file_to_read_user_input+' is a invalid file')
+		retry_start:
+		retry_user_input := os.input('Do you want to try again:').to_lower()
+		if retry_user_input == 'y' || retry_user_input == 'yes' {
+			unsafe{goto start}
+		}
+		else if retry_user_input == 'n' || retry_user_input == 'no' {
+			println('Ok exiting')
+			exit(0)
+		}
+		else {
+			println(retry_user_input+' is not a cmd. Please enter yes or no!')
+			unsafe{goto retry_start}
+		}
+
+	}
+}
+
+
+return 0
+}
+
 
 fn activity() ?int {
 	//TODO add help menu to activity
 println("Welcome To Cctivity")
-    activity_user_input := os.input('What do you want to do:')
+    activity_user_input := os.input('What do you want to do:').to_lower()
  match activity_user_input {
-    'stats' {  }
+    'read' { activity_read() or{panic(err)} }
     'new' { activity_new() or{panic(err)} }
     'about' { about_cmd() }
 	'quit' { exit(0) }
