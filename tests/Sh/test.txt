@@ -2,3 +2,13 @@ add:1,2,reg1
 print:reg1
 reg1:hi
 print:reg1
+print:"hi"
+reg1:hih
+if_equl_exit:reg1,hi
+print:"oof"
+print:"not"
+print:"hi"
+print:"hih"
+print:"hih"
+math:reg1,2+3
+print:reg1

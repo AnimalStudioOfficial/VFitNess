@@ -792,6 +792,61 @@ fn steps() {
 //TODO add the steps cmd to keep track of the users steps
 }
 
+struct Activity_stats {
+mut:
+  	date   string //Date of Activity
+	steps    string //Steps
+	cals    string //calories burnt
+	mi    string //Miles
+	bpm_max    string //Max BPM
+	bpm_avg    string
+}
+
+fn activity_new() ?int {
+
+mut date_activity := time.now().str() //Get the time now
+
+steps_user_input := os.input('Please enter your Steps:') //Input Steps
+calories_user_input := os.input('Please enter your Calories Burnt:') //Input Calories Burnt
+miles_user_input := os.input('Please enter your Miles:') //Input Miles
+bpm_max_user_input := os.input('Please enter your bpm max:') //Input bpm max
+bpm_avg_user_input := os.input('Please enter your bpm avg:') //Input bpm avg
+
+mut a_s := Activity_stats{
+  	date: date_activity //Date of Activity
+	steps: steps_user_input //Steps
+	cals: calories_user_input //calories burnt
+	mi: miles_user_input //Miles
+	bpm_max: bpm_max_user_input //Max BPM
+	bpm_avg: bpm_avg_user_input
+
+	}
+out := json.encode(a_s)
+println(out)
+
+ mut outfile := os.create('data/activity.txt') or {panic(err)}
+ defer {
+ outfile.close()
+ }
+ outfile.writeln(out) or {panic(err)}
+return 0
+}
+
+
+fn activity() ?int {
+	//TODO add help menu to activity
+println("Welcome To Cctivity")
+    activity_user_input := os.input('What do you want to do:')
+ match activity_user_input {
+    'stats' {  }
+    'new' { activity_new() or{panic(err)} }
+    'about' { about_cmd() }
+	'quit' { exit(0) }
+	else { println(activity_user_input+" is NOT a command") }
+ }
+return 0
+}
+
 fn main(){
 
 mut data_dir_exists := os.exists("data") //Check if data dir exists
@@ -835,6 +890,7 @@ help_cmd()
 match user_input {
     'food' { food(.return_error)? }
 	'user' { user()? }
+	'activity' { activity()? }
 	'weight' { weight_cmd()? }
 	'settings' { settings(.return_error)? }
     'info' { pc_info() }

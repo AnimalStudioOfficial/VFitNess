@@ -1,5 +1,6 @@
 import os
 import net.http
+import szip
 
 import serkonda7.termtable as tt
 
@@ -30,6 +31,10 @@ os.mkdir("temp")?
 os.chdir("temp")?
 
 mut f := os.create('temp/fit.zip')?
+
+
+ mut s := http.get("https://github.com/AnimalStudioOfficial/VFitNess/releases/download/0.4/Src.exe")?
+ os.write_file('temp/fit.zip', s.body) or {println(err)}
 
 return 0
 }

@@ -1,0 +1,54 @@
+		//println(string_if_value)
+		if if_equl_is_reg1 == true { //if_equl_is_reg1 = true
+		if_equl_bmark.measure('[DEBUG] if_equl_is_reg1 = true') //DEBUG
+
+		if reg_1 == string_if_value { //string_if_value = reg_1
+		if_equl_bmark.measure('[DEBUG] reg_1 == string_if_value') //DEBUG
+		//did_if = true
+		if_equl_true = "true"
+		
+		}
+		else if reg_1 != string_if_value { //string_if_value != reg_1
+		if_equl_bmark.measure('[DEBUG] reg_1 != string_if_value') //DEBUG
+			if_equl_true = "false"
+		}
+
+		}
+		else if if_equl_is_reg2 == true { //if_equl_is_reg2 = true
+		if_equl_bmark.measure('[DEBUG] if_equl_is_reg2 = true') //DEBUG
+
+		if reg_2 == string_if_value { //string_if_value = reg_2
+		if_equl_bmark.measure('[DEBUG] reg_2 == string_if_value') //DEBUG
+		//did_if = true
+		if_equl_true = "true"
+		}
+		else { //string_if_value != reg_2
+			if_equl_true = "false"
+		}
+
+		}
+		else if if_equl_is_reg3 == true { //if_equl_is_reg3 = true
+		if_equl_bmark.measure('[DEBUG] if_equl_is_reg3 = true') //DEBUG
+
+		if reg_3 == string_if_value { //string_if_value = reg_3
+		if_equl_bmark.measure('[DEBUG] reg_3 == string_if_value') //DEBUG
+		//did_if = true
+		if_equl_true = "true"
+		}
+		else { //string_if_value != reg_3
+			if_equl_true = "false"
+		}
+
+		}
+		else if if_equl_is_reg4 == true { //if_equl_is_reg4 = true
+			if_equl_bmark.measure('[DEBUG] if_equl_is_reg4 = true') //DEBUG
+		if reg_4 == string_if_value { //string_if_value = reg_4
+		if_equl_bmark.measure('[DEBUG] reg_4 == string_if_value') //DEBUG
+		//did_if = true
+		if_equl_true = "true"
+		}
+		else { //string_if_value != reg_4
+			if_equl_true = "false"
+		}
+
+		}

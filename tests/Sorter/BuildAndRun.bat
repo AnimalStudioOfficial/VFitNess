@@ -1,3 +1,3 @@
 v .
-Sorter.exe  https://www.google.com
+Sorter.exe 
 pause
