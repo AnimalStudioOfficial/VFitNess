@@ -11,6 +11,8 @@
 //mut c := clipboard.new()
 //c.copy('I am a good boy!')
 
+module main
+
 import os
 import term
 import runtime
@@ -40,7 +42,7 @@ enum State {
 
 const (
 	debug_mode = true
-	version = "0.04"
+	version = "0.05"
 )
 
 struct User {
@@ -101,6 +103,8 @@ data := [
 		['7', 'user', 'Your User Profile'],
 		['8', 'weight', 'weight tracking'],
 		['9', 'activity', 'your activity'],
+		['10', 'assistant', 'your personal assistant Zack'],
+		['11', 'search', 'search for food facts'],
 	]
 	t := tt.Table{
 		data: data
@@ -142,10 +146,22 @@ time.sleep(2)
 fn add_fat_file_input(s State) ?int {
  add_fat_file_input := os.input('Do you want to create the fat.txt file:').to_lower()
 if add_fat_file_input == 'yes' || add_fat_file_input == 'y' {
-mut f := os.create('data/fat.txt')?
+mut f := os.create('data/fat.txt') or{panic(err)}
 return f.writeln('0g')
 }
 else if add_fat_file_input == 'no' || add_fat_file_input == 'n' {
+exit(1)
+}
+ return 0
+}
+//sugar
+fn add_sugar_file_input(s State) ?int {
+ add_sugar_file_input := os.input('Do you want to create the sugar.txt file:').to_lower()
+if add_sugar_file_input == 'yes' || add_sugar_file_input == 'y' {
+mut f := os.create('data/sugar.txt') or{panic(err)}
+return f.writeln('0g')
+}
+else if add_sugar_file_input == 'no' || add_sugar_file_input == 'n' {
 exit(1)
 }
  return 0
@@ -154,7 +170,7 @@ exit(1)
 fn add_proteins_file_input(s State) ?int {
  add_proteins_file_input := os.input('Do you want to create the proteins.txt file:').to_lower()
 if add_proteins_file_input == 'yes' || add_proteins_file_input == 'y' {
-mut f := os.create('data/proteins.txt')?
+mut f := os.create('data/proteins.txt') or{panic(err)}
 return f.writeln('0g')
 }
 else if add_proteins_file_input == 'no' || add_proteins_file_input == 'n' {
@@ -166,7 +182,7 @@ exit(1)
 fn add_calories_file_input(s State) ?int {
  add_calories_file_input := os.input('Do you want to create the calories.txt file:').to_lower()
 if add_calories_file_input == 'yes' || add_calories_file_input == 'y' {
-mut f := os.create('data/calories.txt')?
+mut f := os.create('data/calories.txt') or{panic(err)}
 return f.writeln('0')
 }
 else if add_calories_file_input == 'no' || add_calories_file_input == 'n' {
@@ -180,6 +196,7 @@ fn food(s State) ?int {
 //Stats
  mut calories := ""
  mut fat := "g" //Add g to the end of the string to repesent grams
+ mut sugar := "g" //Add g to the end of the string to repesent grams
  mut proteins := "g" //Add g to the end of the string to repesent grams
 
 //Read Stats files
@@ -202,6 +219,32 @@ else if is_fat_file == false && is_fat_file != true{
     println(chalk.fg(chalk.style('[ERROR]', 'bold'), 'red')+' fat.txt is not a file or does not exist')
 
     n := add_fat_file_input(.return_error) or {
+		println('Error: $err')
+		0
+	}
+	println('$n bytes written')
+    unsafe {goto check_sugar_file}
+    exit(1)
+}
+//sugar file
+check_sugar_file:
+mut is_sugar_file := os.is_file("data/sugar.txt")
+if is_sugar_file == true && is_sugar_file != false{
+   // println("true")
+    //TODO add check is_readable() fn to sugar file
+
+    data := os.read_file("data/sugar.txt")?
+    sugar = data
+  //println(data)
+
+
+ //println(sugar)
+}
+else if is_sugar_file == false && is_sugar_file != true{
+    //println("false")
+    println(chalk.fg(chalk.style('[ERROR]', 'bold'), 'red')+' sugar.txt is not a file or does not exist')
+
+    n := add_sugar_file_input(.return_error) or {
 		println('Error: $err')
 		0
 	}
@@ -232,7 +275,7 @@ else if is_proteins_file == false && is_proteins_file != true{
 		0
 	}
 	println('$n bytes written')
-    unsafe {goto check_fat_file}
+    unsafe {goto check_calories_file}
     exit(1)
 }
 //calories file
@@ -265,8 +308,27 @@ else if is_calories_file == false && is_calories_file != true{
 
 
 start:
-//TODO add help menu to food
     println("Welcome To Food")
+data := [
+		['Number', 'Name', 'Dec'],
+		['1', 'stats', 'Current Food Stats'],
+        ['2', 'add', 'Add to Current Food Stats'],
+		['3', 'clear', 'Clear the Current Food Stats'],
+		['4', 'about', 'VFitNess about'],
+		['5', 'quit', 'exit the app'],
+	]
+	t := tt.Table{
+		data: data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
+
     food_user_input := os.input('What do you want to do:')
  match food_user_input {
     'stats' { goto stats }
@@ -291,6 +353,14 @@ calories = ker
  //println(her)
 fat = her + 'g' //Add g to the end of the string to repesent grams
 
+food_add_sugar_user_input := os.input('What do you want to add to sugar:').int() //sugar input
+ mut sugartemp := sugar.int() //Convert sugar to a int
+ mut jer1 := sugartemp + food_add_sugar_user_input  //add sugar int and food_add_sugar_user_input
+ mut ter1 := jer1.str() //then convert back to string
+  //println(ter)
+sugar = ter1 + 'g' //Add g to the end of the string to repesent grams
+
+
 food_add_proteins_user_input := os.input('What do you want to add to proteins:').int() //proteins input
  mut proteinstemp := proteins.int() //Convert proteins to a int
  mut jer := proteinstemp + food_add_proteins_user_input  //add proteins int and food_add_proteins_user_input
@@ -305,9 +375,12 @@ stats:
  println("calories:"+calories)
 //fat
  println("Fat: "+fat)
+ //sugar
+ println("Sugar: "+sugar)
  //proteins
  println("Proteins:"+proteins)
  goto start
+
 write_stats_to_file:
 //fat file
  mut f := os.create('data/fat.txt')?
@@ -315,12 +388,21 @@ write_stats_to_file:
  f.close()
  }
  f.writeln(fat)?
+
+ //sugar file
+ mut s1 := os.create('data/sugar.txt') or{panic(err)}
+ defer {
+ s1.close()
+ }
+ s1.writeln(sugar) or{panic(err)}
+
  //proteins file
  mut p := os.create('data/proteins.txt')?
  defer {
  p.close()
  }
  p.writeln(proteins)?
+
  //calories file
  mut calories_p := os.create('data/calories.txt')?
  defer {
@@ -328,9 +410,11 @@ write_stats_to_file:
  }
  calories_p.writeln(calories)?
  goto start
+
 food_clear:
  fat = "g"
  calories = ""
+sugar = "g"
  proteins = "g"
  goto write_stats_to_file
  goto start
@@ -589,7 +673,7 @@ settings_data := [
 	settings_user_input := os.input('What do you want to change:').to_lower()
 
 	match settings_user_input {
-	'cleardata' { cleardata(.return_error)? }
+	'cleardata' { cleardata(.return_error) or{panic(err)} }
 	'quit' { exit(0) }
 	else { println(settings_user_input+" is NOT a command") }
 }
@@ -624,9 +708,9 @@ fn user_pro() ?int {
 	if os.exists("data/user.txt") == true {
 
 	
-	user_data := os.read_file("data/user.txt")?
+	user_data := os.read_file("data/user.txt") or{panic(err)}
 	//println(user_data)
-    u := json.decode(User, user_data)?
+    u := json.decode(User, user_data) or{panic(err)}
 	//println(u)
 
 	//println('Your Profile')
@@ -681,8 +765,8 @@ fn user() ?int {
 	
 user_cmd_user_input := os.input('What do you want to do:').to_lower()
 match user_cmd_user_input {
-	'new' { user_new()? }
-	'user' { user_pro()? }
+	'new' { user_new() or{panic(err)} }
+	'user' { user_pro() or{panic(err)} }
     'about' { about_cmd() }
 	'quit' { exit(0) }
 	else { println(user_cmd_user_input+" is NOT a command") }
@@ -789,13 +873,11 @@ weight_write_stats_to_file:
 // println(x.name)
 
 
-fn steps() {
-//TODO add the steps cmd to keep track of the users steps
-}
 
 struct Activity_stats {
 mut:
   	date   string //Date of Activity
+	type_of_activity string //Type of Activity
 	steps    string //Steps
 	cals    string //calories burnt
 	mi    string //Miles
@@ -807,6 +889,7 @@ fn activity_new() ?int {
 
 mut date_activity := time.now().str() //Get the time now
 
+type_user_input := os.input('Please enter the Type of Activity:') //Input Type of Activity
 steps_user_input := os.input('Please enter your Steps:') //Input Steps
 calories_user_input := os.input('Please enter your Calories Burnt:') //Input Calories Burnt
 miles_user_input := os.input('Please enter your Miles:') //Input Miles
@@ -815,12 +898,12 @@ bpm_avg_user_input := os.input('Please enter your bpm avg:') //Input bpm avg
 
 mut a_s := Activity_stats{
   	date: date_activity //Date of Activity
+	type_of_activity: type_user_input //Type of Activity
 	steps: steps_user_input //Steps
 	cals: calories_user_input //calories burnt
 	mi: miles_user_input //Miles
 	bpm_max: bpm_max_user_input //Max BPM
 	bpm_avg: bpm_avg_user_input
-
 	}
 out := json.encode(a_s)
 println(out)
@@ -852,6 +935,7 @@ match is_a_file {
 	data := [
 		["Your Activity"],
 		["Date: "+u.date],
+		["Type: "+u.type_of_activity],
 		["Steps: "+u.steps],
 		["Calories Burnt: "+u.cals],
 		["Miles: "+u.mi],
@@ -916,8 +1000,27 @@ return 0
 
 
 fn activity() ?int {
-	//TODO add help menu to activity
-println("Welcome To Cctivity")
+println("Welcome To Activity")
+	data := [
+		['Number', 'Name', 'Dec'],
+		['1', 'read', 'Read a Activity file'],
+        ['2', 'new', 'New Activity file'],
+		['3', 'about', 'VFitNess about'],
+		['4', 'quit', 'exit the app'],
+	]
+	t := tt.Table{
+		data: data
+		// The following settings are optional and have these defaults:
+		style: .fancy_grid
+		header_style: .bold
+		align: .left
+		orientation: .row
+		padding: 1
+		tabsize: 4
+	}
+	println(t)
+
+
     activity_user_input := os.input('What do you want to do:').to_lower()
  match activity_user_input {
     'read' { activity_read() or{panic(err)} }
@@ -928,6 +1031,12 @@ println("Welcome To Cctivity")
  }
 return 0
 }
+
+
+
+
+
+
 
 fn main(){
 
@@ -972,6 +1081,8 @@ help_cmd()
 match user_input {
     'food' { food(.return_error)? }
 	'user' { user()? }
+	'search' { search_food()? }
+	'assistant' { assistant_cmd() or{panic(err)} }
 	'activity' { activity()? }
 	'weight' { weight_cmd()? }
 	'settings' { settings(.return_error)? }

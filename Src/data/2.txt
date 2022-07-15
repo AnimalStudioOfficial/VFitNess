@@ -1,0 +1,1 @@
+{"date":"2022-07-15 16:33:40","type_of_activity":"run","steps":"1","cals":"46","mi":"3","bpm_max":"5","bpm_avg":"4"}

@@ -1,80 +1,93 @@
-// Copyright (c) 2019-2022 Alexander Medvednikov. All rights reserved.
-// Use of this source code is governed by an MIT license
-// that can be found in the LICENSE file.
 import os
-import time
+import rand
 
+//b := ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+//mut brand := b[ rand.intn(b.len)? ]
 
+//a := ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+//mut arand := a[ rand.intn(a.len)? ]
+//return arand
 
+[manualfree]
+fn gen() ?string {
+r:=['1','2']
+mut o:=r[rand.intn(r.len)?]
+match o {
+'1' { //char
+a := ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+mut ar := a[rand.intn(a.len)?]
+return ar
+}
+'2' { //num
+b := ['1','2','3','4','5','6','7','8','9']
+mut br := b[rand.intn(b.len)?]
+return br
+}
+else{}
+}
+return ''
+}
+
+[manualfree]
+fn gen_l() ?string {
+a := ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+mut ar := a[rand.intn(a.len)?]
+return ar
+}
+
+[manualfree]
+fn gen_n() ?string {
+b := ['1','2','3','4','5','6','7','8','9']
+mut br := b[rand.intn(b.len)?]
+return br
+}
+
+fn main2() ?int {
+mut trys:=0
+mut pass:=[]string{}
+//mut u2_b := ''
+//mut u3_b := ''
+u1:=os.input('password:')
+u2:=os.input('does the password have letters:')
+u3:=os.input('does the password have nums:')
+try2:
+pass.prepend(gen_l()?)	
+pass.prepend(gen_l()?)	
+pass.prepend(gen_l()?)	
+pass.prepend(gen_l()?)	
+pass.prepend(gen_l()?)	
+pass.prepend(gen_l()?)	
+pass.prepend(gen_l()?)	
+pass.prepend(gen_l()?)	
+mut fin := pass.join('')
+if fin==u1{
+println('done with '+trys.str())
+}else{
+trys++
+pass.clear()
+unsafe{goto try2}
+}
+return 0
+}
+
+[manualfree]
 fn main() {
-	sw := time.new_stopwatch()
-	mut path := 'OOF.mp4'
-	mut f := os.create('new.txt') or {panic(err)}
-	if os.args.len != 2 {
-		println('usage: word_counter [text_file]')
-		println('using $path')
-	} else {
-		path = os.args[1]
-	}
-	contents := os.read_file(path.trim_space()) or {
-		println('failed to open $path')
-		return
-	}
-	mut m := map[string]int{}
-	for word in extract_words(contents) {
-		m[word]++
-	}
-	// Sort the keys
-	mut keys := m.keys()
-	keys.sort()
-	// Print the map
-	for key in keys {
-		val := m[key]
-		//println('$key => $val')
-		f.writeln('$key => $val') or {panic(err)}
-		val.delete(key)
-		m.delete(key)
-		
-	}
-
-	println('Greeting the world took: ${sw.elapsed().seconds()}s')
+//main2()?
+u:=os.input('password')
+mut trys:=0
+mut pass:=[]string{}
+try:
+for i:=0;i<8;i++{
+//Gen random pass
+pass.prepend(gen()?)	
 }
-
-// Creates an array of words from a given string
-fn extract_words(contents string) []string {
-	mut splitted := []string{}
-	for space_splitted in contents.to_lower().split(' ') {
-		if space_splitted.contains('\n') {
-			splitted << space_splitted.split('\n')
-		} else {
-			splitted << space_splitted
-		}
-	}
-
-	mut results := []string{}
-	for s in splitted {
-		result := filter_word(s)
-		if result == '' {
-			continue
-		}
-		results << result
-	}
-	return results
+mut fin := pass.join('')
+if fin==u{
+println('done with '+trys.str())
+}else{
+trys++
+pass.clear()
+unsafe{goto try}
 }
-
-// Removes punctuation
-fn filter_word(word string) string {
-	if word == '' || word == ' ' {
-		return ''
-	}
-	mut i := 0
-	for i < word.len && !word[i].is_letter() {
-		i++
-	}
-	start := i
-	for i < word.len && word[i].is_letter() {
-		i++
-	}
-	end := i
-	return word[start..end]
+//println(pass.join(''))
 }
